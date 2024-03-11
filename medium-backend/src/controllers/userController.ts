@@ -133,11 +133,12 @@ export const signinController = async (c: Context) => {
       email: userExists.email,
     };
 
-    const token = sign(payload, c.env.JWT_SECRET);
+    const token = await sign(payload, c.env.JWT_SECRET);
 
     c.status(200);
     return c.json({
       success: true,
+      id: userExists.id,
       token,
     });
   } catch (error) {
