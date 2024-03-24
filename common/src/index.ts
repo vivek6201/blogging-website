@@ -2,11 +2,11 @@ import { z } from "zod";
 
 export const signupValidations = z
   .object({
-    firstName: z.string(),
-    lastName: z.string(),
+    firstName: z.string().min(1),
+    lastName: z.string().min(1),
     email: z.string().email(),
-    password: z.string(),
-    confirmPassword: z.string(),
+    password: z.string().min(8).max(16),
+    confirmPassword: z.string().min(8).max(16),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords don't match",
@@ -15,18 +15,18 @@ export const signupValidations = z
 
 export const signinValidations = z.object({
   email: z.string().email(),
-  password: z.string(),
+  password: z.string().min(8).max(16),
 });
 
 export const profileValidations = z.object({
   dob: z.string(),
-  phoneNumber: z.number(),
-  address: z.string()
+  phoneNumber: z.number().min(10).max(10),
+  address: z.string().min(10)
 });
 
 export const createBlog = z.object({
-    title: z.string(),
-    content: z.string(),
+    title: z.string().min(3),
+    content: z.string().min(10),
     published: z.boolean(),
 });
 
