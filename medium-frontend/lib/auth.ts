@@ -60,6 +60,8 @@ export const authOptions: NextAuthOptions = {
           return null;
         }
 
+        console.log(data);
+
         return {
           id: data.id,
           token: data.token,
@@ -69,4 +71,7 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
+  pages:{
+    signIn: '/signin',
+  }
 };
