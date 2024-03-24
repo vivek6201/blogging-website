@@ -4,7 +4,16 @@ import { createBlog } from "@vivek6201/common";
 
 export const getAllPostController = async (c: Context) => {
   try {
-    const posts = await getPrismaClient(c).post.findMany();
+    const posts = await getPrismaClient(c).post.findMany({
+      include: {
+        author: {
+          select: {
+            firstName: true,
+            lastName: true,
+          },
+        },
+      },
+    });
     c.status(200);
     return c.json({
       success: true,
@@ -132,9 +141,14 @@ export const getSinglePostController = async (c: Context) => {
       where: {
         id,
       },
-      include:{
-        author: true
-      }
+      include: {
+        author: {
+          select: {
+            firstName: true,
+            lastName: true,
+          },
+        },
+      },
     });
 
     c.status(200);

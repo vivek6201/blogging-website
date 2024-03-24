@@ -17,12 +17,12 @@ export const postRoutes = new Hono<{
 }>();
 
 postRoutes.get("/all",getAllPostController);
+postRoutes.get("/:id", getSinglePostController);
 
 //apply auth middleware
 postRoutes.use("/*",authMiddleware);
 
 postRoutes.get("/by-user", getPostController);
-postRoutes.get("/:id", getSinglePostController);
 postRoutes.post("/create", createPostController);
 postRoutes.put("/update/:id", updatePostController);
 postRoutes.delete("/delete", deletPostController);
